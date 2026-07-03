@@ -1,0 +1,125 @@
+{
+  "buildFiles": [
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-gesture-handler/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-mmkv/MMKV/Core/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-mmkv/android/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-mmkv/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-reanimated/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-safe-area-context/android/src/main/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-screens/android/src/main/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-svg/android/src/main/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native-vector-icons/android/build/generated/source/codegen/jni/CMakeLists.txt",
+    "/home/tanluc/workspace/physical-ai/frontend/node_modules/react-native/ReactAndroid/cmake-utils/default-app-setup/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/tanluc/Android/sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/tanluc/workspace/physical-ai/frontend/android/app/.cxx/Debug/1f683v1r/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/tanluc/Android/sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/tanluc/workspace/physical-ai/frontend/android/app/.cxx/Debug/1f683v1r/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "appmodules",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libappmodules.so",
+      "runtimeFiles": [
+        "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact-native-mmkv.so",
+        "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_safeareacontext.so",
+        "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_rnscreens.so",
+        "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_rnsvg.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+      ]
+    },
+    "core::@1b9a7d546b295b7d0867": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "core",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/.cxx/Debug/1f683v1r/x86/RNMmkvSpec_cxxmodule_autolinked_build/core/libcore.a"
+    },
+    "react-native-mmkv::@4ae6a1e65d3e68ba0197": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react-native-mmkv",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact-native-mmkv.so",
+      "runtimeFiles": [
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+      ]
+    },
+    "react_codegen_RNMmkvSpec::@7541eabbae598da31a69": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_RNMmkvSpec"
+    },
+    "react_codegen_RNVectorIconsSpec::@479809fae146501fd34d": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_RNVectorIconsSpec"
+    },
+    "react_codegen_rngesturehandler_codegen::@39f233abcd2c728bc6ec": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_rngesturehandler_codegen"
+    },
+    "react_codegen_rnreanimated::@8afabad14bfffa3f8b9a": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_rnreanimated"
+    },
+    "react_codegen_rnscreens::@25bcbd507e98d3a854ad": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_rnscreens",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_rnscreens.so",
+      "runtimeFiles": [
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so"
+      ]
+    },
+    "react_codegen_rnsvg::@4f40eb209d0c0b4a3b65": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_rnsvg",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_rnsvg.so",
+      "runtimeFiles": [
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so"
+      ]
+    },
+    "react_codegen_safeareacontext::@7984cd80db47aa7b952a": {
+      "toolchain": "toolchain",
+      "abi": "x86",
+      "artifactName": "react_codegen_safeareacontext",
+      "output": "/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86/libreact_codegen_safeareacontext.so",
+      "runtimeFiles": [
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/8b60b4f75564ac53567672df7a1c9a73/transformed/fbjni-0.6.0/prefab/modules/fbjni/libs/android.x86/libfbjni.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/jsi/libs/android.x86/libjsi.so",
+        "/home/tanluc/.gradle/caches/8.10.2/transforms/1ae2c2bcce3cae52224b57e1fa01bdc7/transformed/react-android-0.76.5-debug/prefab/modules/reactnative/libs/android.x86/libreactnative.so"
+      ]
+    }
+  },
+  "toolchains": {
+    "toolchain": {
+      "cCompilerExecutable": "/home/tanluc/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/bin/clang.lld",
+      "cppCompilerExecutable": "/home/tanluc/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++.lld"
+    }
+  },
+  "cFileExtensions": [],
+  "cppFileExtensions": [
+    "cpp"
+  ]
+}

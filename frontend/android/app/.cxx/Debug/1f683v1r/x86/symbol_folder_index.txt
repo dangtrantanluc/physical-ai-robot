@@ -1,0 +1,1 @@
+/home/tanluc/workspace/physical-ai/frontend/android/app/build/intermediates/cxx/Debug/1f683v1r/obj/x86
