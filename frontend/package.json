@@ -19,15 +19,15 @@
     "axios": "^1.7.9",
     "react": "18.3.1",
     "react-native": "0.76.5",
-    "react-native-gesture-handler": "^2.21.2",
+    "react-native-gesture-handler": "~2.21.2",
     "react-native-mmkv": "^3.1.0",
     "react-native-paper": "^5.12.5",
     "react-native-reanimated": "~3.16.7",
     "react-native-safe-area-context": "~5.1.0",
     "react-native-screens": "~4.4.0",
-    "react-native-svg": "^15.9.0",
+    "react-native-svg": "~15.9.0",
     "react-native-vector-icons": "^10.2.0",
-    "react-native-vision-camera": "^4.6.4",
+    "react-native-vision-camera": "~4.6.4",
     "zustand": "^5.0.2"
   },
   "devDependencies": {
