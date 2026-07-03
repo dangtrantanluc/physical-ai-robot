@@ -1,0 +1,17 @@
+# Root monorepo ignores (backend/ and frontend/ have their own too)
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/settings.json
+
+# Env / secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Logs
+*.log
+logs/

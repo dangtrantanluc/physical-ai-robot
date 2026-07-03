@@ -1,0 +1,36 @@
+# ============================================================================
+# Physical AI Robot — runtime dependencies (pinned)
+# Install: pip install -r requirements.txt
+# ============================================================================
+
+# ---- Web framework ----
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+websockets==14.1
+
+# ---- Config / validation (Pydantic v2) ----
+pydantic==2.10.4
+pydantic-settings==2.7.1
+
+# ---- Database (async SQLAlchemy 2.0 + asyncpg + Alembic) ----
+SQLAlchemy[asyncio]==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+greenlet==3.1.1
+
+# ---- Redis (async client for hot robot state) ----
+redis==5.2.1
+
+# ---- Computer vision ----
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+
+# ---- Structured logging ----
+structlog==24.4.0
+
+# ---- Deep learning (mandatory stack; CPU wheels resolve to torch==2.5.1+cpu on Linux) ----
+# Torch is installed but NOT imported at startup — only lazily by real detectors
+# (see app/infrastructure/vision/yolo_detector.py). MockDetector needs only OpenCV/numpy,
+# so the service boots even if these are omitted for a lighter dev image.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.5.1
