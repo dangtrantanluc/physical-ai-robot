@@ -46,10 +46,15 @@ def _build_detector(settings: Settings) -> VisionDetector:
     name = settings.vision_detector.lower()
     if name == "mock":
         return MockDetector()
-    if name in {"yolo", "rtdetr", "grounding_dino"}:
+    if name == "yolo":
         from app.infrastructure.vision.yolo_detector import YoloDetector
 
-        return YoloDetector(settings.model_path)
+        return YoloDetector(
+            settings.yolo.model_path,
+            confidence=settings.yolo.confidence,
+            device=settings.yolo.device,
+        )
+    # rtdetr / grounding_dino: same VisionDetector port, not implemented yet.
     logger.warning("unknown_detector_fallback_mock", requested=name)
     return MockDetector()
 
@@ -63,18 +68,33 @@ def _build_recognizer(settings: Settings) -> SpeechRecognizer:
     return MockRecognizer()
 
 
-def _build_planner(settings: Settings) -> Planner:
-    name = settings.planner.lower()
-    if name == "rule":
-        return RulePlanner(
-            battery_critical_pct=settings.battery.critical_pct,
-            battery_low_pct=settings.battery.low_pct,
-        )
-    logger.warning("unknown_planner_fallback_rule", requested=name)
+def _build_rule_planner(settings: Settings) -> RulePlanner:
     return RulePlanner(
         battery_critical_pct=settings.battery.critical_pct,
         battery_low_pct=settings.battery.low_pct,
     )
+
+
+def _build_planner(settings: Settings) -> Planner:
+    name = settings.planner.lower()
+    if name == "rule":
+        return _build_rule_planner(settings)
+    if name == "llm":
+        from app.infrastructure.planner.llm_planner import LLMPlanner
+
+        return LLMPlanner(
+            base_url=settings.llm.base_url,
+            api_key=settings.llm.api_key,
+            model=settings.llm.model,
+            fallback=_build_rule_planner(settings),  # deterministic safety net
+            battery_critical_pct=settings.battery.critical_pct,
+            temperature=settings.llm.temperature,
+            timeout_s=settings.llm.timeout_s,
+            max_tokens=settings.llm.max_tokens,
+            json_mode=settings.llm.json_mode,
+        )
+    logger.warning("unknown_planner_fallback_rule", requested=name)
+    return _build_rule_planner(settings)
 
 
 @dataclass(slots=True)
@@ -88,6 +108,7 @@ class Container:
     state_store: RobotStateStore
     detector: VisionDetector
     recognizer: SpeechRecognizer
+    planner: Planner
     behavior_manager: BehaviorManager
     vision_service: VisionService
     speech_service: SpeechService
@@ -116,6 +137,7 @@ class Container:
             state_store=RedisRobotStateStore(redis),
             detector=detector,
             recognizer=recognizer,
+            planner=planner,
             behavior_manager=build_behavior_manager(settings),
             vision_service=VisionService(detector),
             speech_service=SpeechService(recognizer),
@@ -132,6 +154,10 @@ class Container:
 
     async def shutdown(self) -> None:
         """Release external resources. Called from the app lifespan on shutdown."""
+        # Close the planner's HTTP client if it holds one (e.g. LLMPlanner).
+        aclose = getattr(self.planner, "aclose", None)
+        if callable(aclose):
+            await aclose()
         await self.redis.aclose()
         await self.engine.dispose()
         logger.info("container_shutdown")

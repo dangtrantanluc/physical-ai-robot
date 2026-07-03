@@ -13,7 +13,7 @@ from __future__ import annotations
 from enum import Enum
 from functools import lru_cache
 
-from pydantic import BaseModel, Field, field_validator
+from pydantic import AliasChoices, BaseModel, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -56,6 +56,30 @@ class BatterySettings(BaseModel):
 
     low_pct: float = Field(25.0, ge=0, le=100)
     critical_pct: float = Field(12.0, ge=0, le=100)
+
+
+class YoloSettings(BaseModel):
+    """Ultralytics YOLO detector config (used when VISION_DETECTOR=yolo)."""
+
+    model_path: str = Field("/app/models/yolov8n.pt", description="path to YOLO .pt weights")
+    confidence: float = Field(0.35, ge=0, le=1)
+    device: str = Field("cpu", description="torch device: cpu | cuda:0")
+
+
+class LLMSettings(BaseModel):
+    """Third-party LLM planner config (used when PLANNER=llm).
+
+    Provider-neutral: point BASE_URL at any OpenAI-compatible /chat/completions
+    endpoint (OpenAI, OpenRouter, Groq, Together, local vLLM/Ollama, ...).
+    """
+
+    base_url: str = Field("https://api.openai.com/v1", description="OpenAI-compatible base URL")
+    api_key: str = Field("", description="bearer token for the LLM API")
+    model: str = Field("gpt-4o-mini", description="model id at the endpoint")
+    temperature: float = Field(0.2, ge=0, le=2)
+    timeout_s: float = Field(6.0, gt=0)
+    max_tokens: int = Field(200, gt=0)
+    json_mode: bool = Field(False, description="send response_format=json_object (if supported)")
 
 
 class Settings(BaseSettings):
@@ -102,6 +126,27 @@ class Settings(BaseSettings):
     follow: FollowSettings = Field(default_factory=FollowSettings)
     search: SearchSettings = Field(default_factory=SearchSettings)
     battery: BatterySettings = Field(default_factory=BatterySettings)
+    yolo: YoloSettings = Field(default_factory=YoloSettings)
+
+    # -- LLM planner (PLANNER=llm) --
+    # Accepts the short names (BASE_URL / MODEL_NAME / API_KEY) or LLM__* forms.
+    # Put the real key in .env (gitignored), never in .env.example (committed).
+    llm_base_url: str = Field(
+        "https://api.openai.com/v1",
+        validation_alias=AliasChoices("llm_base_url", "llm__base_url", "base_url"),
+    )
+    llm_api_key: str = Field(
+        "",
+        validation_alias=AliasChoices("llm_api_key", "llm__api_key", "api_key"),
+    )
+    llm_model: str = Field(
+        "gpt-4o-mini",
+        validation_alias=AliasChoices("llm_model", "llm__model", "model_name"),
+    )
+    llm_temperature: float = 0.2
+    llm_timeout_s: float = 6.0
+    llm_max_tokens: int = 200
+    llm_json_mode: bool = False
 
     # -- Persistence --
     persist_logs: bool = True
@@ -122,6 +167,19 @@ class Settings(BaseSettings):
     @property
     def auth_enabled(self) -> bool:
         return bool(self.api_keys)
+
+    @property
+    def llm(self) -> LLMSettings:
+        """LLM planner config assembled from the top-level llm_* fields."""
+        return LLMSettings(
+            base_url=self.llm_base_url,
+            api_key=self.llm_api_key,
+            model=self.llm_model,
+            temperature=self.llm_temperature,
+            timeout_s=self.llm_timeout_s,
+            max_tokens=self.llm_max_tokens,
+            json_mode=self.llm_json_mode,
+        )
 
 
 @lru_cache(maxsize=1)

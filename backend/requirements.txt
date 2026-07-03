@@ -21,6 +21,9 @@ greenlet==3.1.1
 # ---- Redis (async client for hot robot state) ----
 redis==5.2.1
 
+# ---- Async HTTP client (third-party LLM planner, PLANNER=llm) ----
+httpx==0.28.1
+
 # ---- Computer vision ----
 numpy==1.26.4
 opencv-python-headless==4.10.0.84
@@ -34,3 +37,8 @@ structlog==24.4.0
 # so the service boots even if these are omitted for a lighter dev image.
 --extra-index-url https://download.pytorch.org/whl/cpu
 torch==2.5.1
+
+# ---- Object detection (VISION_DETECTOR=yolo; heavy, imported lazily) ----
+# Pulls torch (already pinned above) + its own deps. Needs a weights file at
+# YOLO__MODEL_PATH (e.g. models/yolov8n.pt). Range-pinned since it releases often.
+ultralytics>=8.3.0,<9.0.0

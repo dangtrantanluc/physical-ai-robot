@@ -1,0 +1,51 @@
+# Convenience stack for local testing on a host where 8000/5432/6379 are already
+# in use by other services. DB/Redis stay internal (not published); the API is
+# exposed on host port 8080. Run:  docker compose -f docker-compose.test.yml up --build
+name: robotbrain-test
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: robot
+      POSTGRES_PASSWORD: robot
+      POSTGRES_DB: robotbrain
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U robot -d robotbrain"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: postgresql+asyncpg://robot:robot@db:5432/robotbrain
+      REDIS_URL: redis://redis:6379/0
+      ENVIRONMENT: development
+      LOG_JSON: "false"
+    ports:
+      - "18080:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: >
+      sh -c "alembic upgrade head &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 1"
+
+volumes:
+  pgdata:
